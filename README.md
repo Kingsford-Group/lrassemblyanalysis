@@ -100,11 +100,14 @@ actual locations of them.
 1. Pre-Process each SRA Run that belongs to this BioSample:
 
     1. Under the SRA Study directory, create a directory named by this SRA Run ID.
+
         In this SRA Run directory, download the hdf5 of this SRA Run from SRA and untar the hdf5.
 
 
     2. Copy `run_bax2bam.sh` from this repository to the current SRA Run directory. 
+
         Edit `run_bax2bam.sh` according to the current SRA Run ID and movie (bax.h5 files).
+
         Run `run_bax2bam.sh` to convert bax.h5 files to subreads bam files:
         ```
         run_bax2bam.sh &
@@ -136,24 +139,28 @@ actual locations of them.
         ```
 
 3. Run Minimap2 + Scallop-LR for this BioSample, and run Gffcompare and Transrate on the predicted transcripts:
-        ```
-        minimap2_scallop_isoseq_allreads_pipeline.sh <Full_path_run_dir> <Organism> <Install_dir> &
-        ```
+
+    ```
+    minimap2_scallop_isoseq_allreads_pipeline.sh <Full_path_run_dir> <Organism> <Install_dir> &
+    ```
 
 4. Run Minimap2 + StringTie for this BioSample, and run Gffcompare and Transrate on the predicted transcripts:
-        ```
-        minimap2_stringtie_1_allreads_pipeline.sh <Full_path_run_dir> <Organism> <Install_dir> &
-        ```
+
+    ```
+    minimap2_stringtie_1_allreads_pipeline.sh <Full_path_run_dir> <Organism> <Install_dir> &
+    ```
 
 5. Run rnaQUAST on Scallop-LR transcripts, StringTie transcripts, and Iso-Seq isoforms for this BioSample:
-        ```
-        rnaQUAST_pipeline.sh <Full_path_run_dir> <Organism> <Merge_dir> &
-        ```
+
+    ```
+    rnaQUAST_pipeline.sh <Full_path_run_dir> <Organism> <Merge_dir> &
+    ```
 
 6. Run SQANTI on Scallop-LR transcripts and Iso-Seq isoforms for this BioSample:
-        ```
-        sqanti_pipeline.sh <Full_path_run_dir> <Organism> <Merge_dir> &
-        ```
+
+    ```
+    sqanti_pipeline.sh <Full_path_run_dir> <Organism> <Merge_dir> &
+    ```
 
 The descriptions for the command-line arguments of these scripts can be found at the beginning of each script.
 The results of Scallop-LR and StringTie are located under the auto-generated `ccs_flnc_and_nfl/minimap2/` directory. 
