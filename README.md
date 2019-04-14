@@ -121,18 +121,19 @@ actual locations of them.
 
 2. Run Iso-Seq Analysis for this BioSample:
 
-    (1) Under the `BioSamples/` directory of the SRA Study directory, create a directory named by this BioSample ID.
+    1. Under the `BioSamples/` directory of the SRA Study directory, create a directory named by this BioSample ID.
+
         In this BioSample directory, create the `SRA_Runs` file. The `SRA_Runs` file should contain all the SRA 
         Run ID's of this BioSample, and each line is one SRA Run ID.
 
 
-    (2) Create the merged dataset from all the SRA Runs of this BioSample and perform Iso-Seq full-analysis:
+    2. Create the merged dataset from all the SRA Runs of this BioSample and perform Iso-Seq full-analysis:
         ```
         biosample_isoseq.sh <BioSample_ID> <Top_dir> <Organism> &
         ```
 
 
-    (3) Post analysis, including Gffcompare and Transrate on final isoforms 
+    3. Post analysis, including Gffcompare and Transrate on final isoforms 
         (after the Iso-Seq full-analysis is successfully completed):
         ```
         post_isoseq_analysis.sh <BioSample_ID> <Organism> <Install_dir> &
