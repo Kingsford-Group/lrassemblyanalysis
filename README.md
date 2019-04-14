@@ -7,7 +7,7 @@ system developed by PacBio that takes subreads as input and outputs polished con
 The predicted transcripts from Iso-Seq Analysis, Scallop-LR, and StringTie are evaluated using multiple 
 evaluation methods [Gffcompare](http://ccb.jhu.edu/software/stringtie/gff.shtml), [SQANTI](https://bitbucket.org/ConesaLab/sqanti), [rnaQUAST](http://cab.spbu.ru/software/rnaquast/), and [Transrate](http://hibberdlab.com/transrate/). 
    
-# Datasets and Directory Structure for Datasets
+# Datasets and the Directory Structure for Datasets
 
 In most of the PacBio datasets in SRA, one BioSample has multiple SRA Runs because the experimenters used 
 multiple "movies" to increase the coverage so that low-abundance, long isoforms can be captured in analysis. 
@@ -77,7 +77,7 @@ The following are the tools/programs that are used in the analysis and their cor
   [GMAP](http://research-pub.gene.com/gmap/)             |  version 2017-09-30.
   [gffread](http://ccb.jhu.edu/software/stringtie/gff.shtml)          |  
   [gtfcuff](https://github.com/Kingsford-Group/rnaseqtools)          |  
-  [bamkit] (https://github.com/Shao-Group/bamkit)           |  
+  [bamkit](https://github.com/Shao-Group/bamkit)           |  
    
 You need to download and compile these tools/programs. Please replace the locations of these executables
 in the scripts of this repository by your actual locations of your executables.
@@ -98,6 +98,7 @@ actual locations of them.
 # Analyze a BioSample-based Dataset with Iso-Seq Analysis, Scallop-LR, and StringTie
 
 (A) Pre-Process each SRA Run that belongs to this BioSample:
+
     (1) Under the SRA Study directory, create a directory named by this SRA Run ID.
         In this SRA Run directory, download the hdf5 of this SRA Run from SRA and untar the hdf5.
 
@@ -116,6 +117,7 @@ actual locations of them.
         ```
 
 (B) Run Iso-Seq Analysis for this BioSample:
+
     (1) Under the `BioSamples/` directory of the SRA Study directory, create a directory named by this BioSample ID.
         In this BioSample directory, create the `SRA_Runs` file. The `SRA_Runs` file should contain all the SRA 
         Run ID's of this BioSample, and each line is one SRA Run ID.
