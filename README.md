@@ -163,7 +163,8 @@ actual locations of them.
     sqanti_pipeline.sh <Full_path_run_dir> <Organism> <Merge_dir> &
     ```
 
-The descriptions for the command-line arguments of these scripts can be found at the beginning of each script.
+The descriptions for the command-line arguments of these scripts can be found at the beginning of each script, 
+or can be displayed by running the script without providing any command-line argument.
 The results of Scallop-LR and StringTie are located under the auto-generated `ccs_flnc_and_nfl/minimap2/` directory. 
 The results of Iso-Seq Analysis are inside the auto-generated `final_collapsed_isoforms/` directory.
 
