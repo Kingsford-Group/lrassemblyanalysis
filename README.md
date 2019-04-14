@@ -99,22 +99,22 @@ actual locations of them.
 
 (A) Pre-Process each SRA Run that belongs to this BioSample:
 
-    (1) Under the SRA Study directory, create a directory named by this SRA Run ID.
-        In this SRA Run directory, download the hdf5 of this SRA Run from SRA and untar the hdf5.
+		1. Under the SRA Study directory, create a directory named by this SRA Run ID.
+		In this SRA Run directory, download the hdf5 of this SRA Run from SRA and untar the hdf5.
 
 
-    (2) Copy `run_bax2bam.sh` from this repository to the current SRA Run directory. 
-        Edit `run_bax2bam.sh` according to the current SRA Run ID and movie (bax.h5 files).
-        Run `run_bax2bam.sh` to convert bax.h5 files to subreads bam files:
-        ```
-        run_bax2bam.sh &
-        ```
+		2. Copy `run_bax2bam.sh` from this repository to the current SRA Run directory. 
+		Edit `run_bax2bam.sh` according to the current SRA Run ID and movie (bax.h5 files).
+		Run `run_bax2bam.sh` to convert bax.h5 files to subreads bam files:
+		```
+		run_bax2bam.sh &
+		```
 
 
-    (3) Create bai index files for subreads bam files:
-        ```
-        create_bai.sh &
-        ```
+		3. Create bai index files for subreads bam files:
+		```
+		create_bai.sh &
+		```
 
 (B) Run Iso-Seq Analysis for this BioSample:
 
