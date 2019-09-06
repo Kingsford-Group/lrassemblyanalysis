@@ -1,7 +1,7 @@
 # Overview: Long-Read Transcript Assembly Analysis
 
 This repository analyzes PacBio transcriptomic long-read datasets extracted from [SRA](https://www.ncbi.nlm.nih.gov/sra) using
-[**Scallop-LR**](https://github.com/Kingsford-Group/scallop/releases/tag/isoseq-v0.9.1), [Iso-Seq Analysis](https://www.pacb.com/documentation/smrt-link-software-installation-v5-1-0/), and [StringTie](https://ccb.jhu.edu/software/stringtie/). Scallop-LR is our released long-read transcript assembler, and StringTie is a 
+[**Scallop-LR**](https://github.com/Kingsford-Group/scallop/tree/isoseq), [Iso-Seq Analysis](https://www.pacb.com/documentation/smrt-link-software-installation-v5-1-0/), and [StringTie](https://ccb.jhu.edu/software/stringtie/). Scallop-LR is our released long-read transcript assembler, and StringTie is a 
 leading short-read transcript assembler which can also assemble long reads. Iso-Seq Analysis is a software 
 system developed by PacBio that takes subreads as input and outputs polished consensus isoforms (transcripts). 
 The predicted transcripts from Iso-Seq Analysis, Scallop-LR, and StringTie are evaluated using multiple 
@@ -78,9 +78,14 @@ The following are the tools/programs that are used in the analysis and their cor
   [gffread](http://ccb.jhu.edu/software/stringtie/gff.shtml)          |  
   [gtfcuff](https://github.com/Kingsford-Group/rnaseqtools)          |  
   [bamkit](https://github.com/Shao-Group/bamkit)           |  
+  [bioawk](https://github.com/lh3/bioawk)        |  awk version 20110810
    
-You need to download and compile these tools/programs. Please replace the locations of these executables
-in the scripts of this repository by your actual locations of your executables.
+You need to download and compile these tools/programs. Please ensure the binaries of these tools/programs
+are in your $PATH. All binaries are expected to be in $PATH by the scripts of this repository.
+
+Note: the Scallop-LR version used by the scripts here is v0.9.1. In Scallop-LR v0.9.1, the binary name is `scallop` which is the same as the binary name of the short-read assembler Scallop.
+So please ensure that in your $PATH, the found binary `scallop` is from Scallop-LR rather than from the short-read assembler Scallop (you can check the version by `scallop --version` and it should return `isoseq-v0.9.1`).
+Later on, if you want to use the newer version Scallop-LR v0.9.2, the binary name is changed to `scallop-lr` from v0.9.2.
 
 The following are the reference genomes, reference annotations, and reference transcriptomes (from [Ensembl](https://uswest.ensembl.org/index.html)) 
 that are used in the analysis:
@@ -93,7 +98,15 @@ that are used in the analysis:
 
 Please replace the locations of the reference genomes, reference annotations, reference transcriptomes, 
 gene database, gmap db, and gmap reference sets (for Iso-Seq) in the scripts of this repository by your 
-actual locations of them.
+actual locations of them. The lines of code that need to be changed are marked by `# REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA` in the scripts.
+
+To prepare gmap db and gmap reference sets (for Iso-Seq), use the following command:
+```
+fasta-to-gmap-reference <reference-fasta-file> <output-dir> <name>
+```
+Where `<reference-fasta-file>` is the full-path reference genome FASTA file; `<output-dir>` is the output directory for gmap db and gmap reference set; 
+`<name>` is the sub-directory name for the output GmapReferenceSet XML file. The gmap reference set XML file `gmapreferenceset.xml` and `gmap_db` will 
+be created under `<output-dir>/<name>/`. This command requires the `gmap_build` executable in $PATH.
 
 # Analyze a BioSample-based Dataset with Iso-Seq Analysis, Scallop-LR, and StringTie
 
@@ -168,3 +181,4 @@ or can be displayed by running the script without providing any command-line arg
 The results of Scallop-LR and StringTie are located under the auto-generated `ccs_flnc_and_nfl/minimap2/` directory. 
 The results of Iso-Seq Analysis are inside the auto-generated `final_collapsed_isoforms/` directory.
 
+Note: the scripts for Iso-Seq Analysis are for SMRT Link v5.1.0 and are not compatible with later SMRT Link versions.

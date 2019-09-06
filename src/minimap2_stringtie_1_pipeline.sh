@@ -21,12 +21,14 @@ bin_dir=$4
 if [ $organism == 'mouse' ]
 then
     echo "mouse"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 3 lines)
     ref_genome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/GRCm38/GRCm38.fa
     ref_annotation=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/gtf/Mus_musculus.GRCm38.92.gtf
     ref_transcriptome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/cDNA/Mus_musculus.GRCm38.cdna.all.fa
     local_ref_genome=$ref_genome
 else
     echo "human"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 4 lines)
     ref_genome=/home/mingfus/data/transcriptomics/ensembl/human/GRCh38/GRCh38.fa
     ref_annotation=/home/mingfus/data/transcriptomics/ensembl/human/gtf/Homo_sapiens.GRCh38.90.gtf
     ref_transcriptome=/mnt/disk27/user/ltung/longreadscallop/data/longreads/mashmap/Homo_sapiens.GRCh38.cdna.all.fa
@@ -52,7 +54,7 @@ then
 fi
 if [ ! -f $minmap2_dir/longreads.sorted.XS.bam ]
 then
-    /home/mingfus/data/repositories/bamkit/build/src/bamkit ts2XS $minmap2_dir/longreads.sorted.bam $minmap2_dir/longreads.sorted.XS.bam
+    bamkit ts2XS $minmap2_dir/longreads.sorted.bam $minmap2_dir/longreads.sorted.XS.bam
 fi
 
 stringtie_dir=$minmap2_dir/stringtie_1
@@ -63,12 +65,12 @@ fi
 
 # Run StringTie
 echo "Running StringTie..."
-{ time /home/mingfus/data/tools/bin/stringtie $minmap2_dir/longreads.sorted.XS.bam -o $stringtie_dir/longreads.gtf -c 1.0; } 2> $stringtie_dir/stringtie.time
+{ time stringtie $minmap2_dir/longreads.sorted.XS.bam -o $stringtie_dir/longreads.gtf -c 1.0; } 2> $stringtie_dir/stringtie.time
 echo "Done StringTie"
 
 # Run gffcompare
 cd $stringtie_dir
-/home/mingfus/data/tools/bin/gffcompare -M -N -r $ref_annotation $stringtie_dir/longreads.gtf
+gffcompare -M -N -r $ref_annotation $stringtie_dir/longreads.gtf
 
 # Get ROC
 if [ $organism == 'mouse' ]

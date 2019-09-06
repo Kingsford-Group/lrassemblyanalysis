@@ -32,10 +32,12 @@ bin_dir=$3/lrassemblyanalysis/src
 if [ $organism == 'mouse' ]
 then
     echo "mouse"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 2 lines)
     ref_annotation=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/gtf/Mus_musculus.GRCm38.92.gtf
     ref_transcriptome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/cDNA/Mus_musculus.GRCm38.cdna.all.fa
 else
     echo "human"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 2 lines)
     ref_annotation=/home/mingfus/data/transcriptomics/ensembl/human/gtf/Homo_sapiens.GRCh38.90.gtf
     ref_transcriptome=/mnt/disk27/user/ltung/longreadscallop/data/longreads/mashmap/Homo_sapiens.GRCh38.cdna.all.fa
 fi
@@ -70,7 +72,7 @@ ln -s $curr_dir/$analysis_dir/tasks/pbtranscript2tools.tasks.post_mapping_to_gen
 bioawk -c fastx '{print ">"$name"\n"$seq}' output_mapped.fastq > output_mapped.fasta
 
 # Run gffcompare
-/home/mingfus/data/tools/bin/gffcompare -M -N -r $ref_annotation $isoforms_dir/output_mapped.gff
+gffcompare -M -N -r $ref_annotation $isoforms_dir/output_mapped.gff
 
 # Get ROC
 if [ $organism == 'mouse' ]

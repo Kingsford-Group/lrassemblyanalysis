@@ -31,6 +31,7 @@ organism=$3
 curr_dir="$PWD"
 
 # GMAP reference sets (pre-generated) locations for human and mouse
+# REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 2 lines)
 human_gmap_refset="/mnt/disk27/user/ltung/longreadscallop/data/datasets/PacBio/human/ERX1468898/ERR1397639/GMAP_Ref_GRCh38/GmapReferenceSet_GRCh38"
 mouse_gmap_refset="/mnt/disk27/user/ltung/longreadscallop/data/datasets/PacBio/mouse/GMAP_Ref_GRCm38/GmapReferenceSet_GRCm38"
 
@@ -39,16 +40,27 @@ filename="SRA_Runs"
 while read -r line
 do
     sra_run_id=$line
-    ln -s $top_dir/$sra_run_id/*.bam* .
+    ln -f -s $top_dir/$sra_run_id/*.bam* .
 done < $filename
 
 # create dataset
+if [ -f ${run_id}.subreadset.xml ]
+then
+    rm ${run_id}.subreadset.xml
+fi
 dataset create --type SubreadSet ${run_id}.subreadset.xml *.subreads.bam
 
 # perform full analysis
 analysis_dir=${run_id}_full_analysis
 
-mkdir $analysis_dir
+if [ ! -d $analysis_dir ]
+then
+    mkdir $analysis_dir
+else
+    echo "Cleaning the existing full analysis output directory..."
+    rm -r $analysis_dir
+    mkdir $analysis_dir
+fi
 
 if [ $organism == 'mouse' ]
 then

@@ -29,11 +29,13 @@ bin_dir=/mnt/disk27/user/ltung/longreadscallop/bin
 if [ $organism == 'mouse' ]
 then
     echo "mouse"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 3 lines)
     ref_genome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/GRCm38/GRCm38.fa
     ref_annotation=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/gtf/Mus_musculus.GRCm38.92.gtf
     gmap_index=/mnt/disk27/user/ltung/longreadscallop/data/gmapdb/GRCm38
 else
     echo "human"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 3 lines)
     ref_genome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/human/GRCh38/GRCh38.fa
     ref_annotation=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/human/gtf/Homo_sapiens.GRCh38.90.gtf
     gmap_index=/mnt/disk27/user/ltung/longreadscallop/data/gmapdb/GRCh38

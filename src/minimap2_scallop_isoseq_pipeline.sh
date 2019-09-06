@@ -23,12 +23,14 @@ bin_dir=$5
 if [ $organism == 'mouse' ]
 then
     echo "mouse"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 3 lines)
     ref_genome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/GRCm38/GRCm38.fa
     ref_annotation=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/gtf/Mus_musculus.GRCm38.92.gtf
     ref_transcriptome=/mnt/disk27/user/ltung/longreadscallop/data/genomes/ensembl/mouse/cDNA/Mus_musculus.GRCm38.cdna.all.fa
     local_ref_genome=$ref_genome
 else
     echo "human"
+    # REPLACE WITH YOUR ACTUAL PATH TO THE REFERENCE DATA (for the following 4 lines)
     ref_genome=/home/mingfus/data/transcriptomics/ensembl/human/GRCh38/GRCh38.fa
     ref_annotation=/home/mingfus/data/transcriptomics/ensembl/human/gtf/Homo_sapiens.GRCh38.90.gtf
     ref_transcriptome=/mnt/disk27/user/ltung/longreadscallop/data/longreads/mashmap/Homo_sapiens.GRCh38.cdna.all.fa
@@ -61,12 +63,12 @@ fi
 
 # Run Scallop-LR
 echo "Running Scallop-LR..."
-{ time /home/mingfus/data/repositories/scallop/isoseq-v0.9.1/src/scallop -i $minmap2_dir/longreads.sorted.bam -o $scallop_dir/longreads.gtf -c $header_file --min_num_hits_in_bundle 1 | grep Bundle > $scallop_dir/test.output; } 2> $scallop_dir/scallop.time
+{ time scallop -i $minmap2_dir/longreads.sorted.bam -o $scallop_dir/longreads.gtf -c $header_file --min_num_hits_in_bundle 1 | grep Bundle > $scallop_dir/test.output; } 2> $scallop_dir/scallop.time
 echo "Done Scallop-LR"
 
 # Run gffcompare
 cd $scallop_dir
-/home/mingfus/data/tools/bin/gffcompare -M -N -r $ref_annotation $scallop_dir/longreads.gtf
+gffcompare -M -N -r $ref_annotation $scallop_dir/longreads.gtf
 
 # Get ROC
 if [ $organism == 'mouse' ]
